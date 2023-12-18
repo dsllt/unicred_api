@@ -14,7 +14,7 @@ public class CreateClientUseCase {
   private ClientRepository clientRepository;
   
   public ClientEntity execute(ClientEntity clientEntity){
-    this.clientRepository.findByIdOrCnpj(clientEntity.getId(), clientEntity.getCnpj()).ifPresent((client) -> {
+    this.clientRepository.findByEmailOrCnpj(clientEntity.getEmail(), clientEntity.getCnpj()).ifPresent((client) -> {
       throw new ClientAlreadyExists();
     });
 

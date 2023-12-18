@@ -14,7 +14,7 @@ public class CreateAccountTrackingUseCase {
   private AccountTrackingRepository accountTrackingRepository;
   
   public AccountTrackingEntity execute(AccountTrackingEntity accountTrackingEntity){
-    this.accountTrackingRepository.findByIdOrAccountId(accountTrackingEntity.getId(), accountTrackingEntity.getAccountId()).ifPresent((account) -> {
+    this.accountTrackingRepository.findByAccountId(accountTrackingEntity.getAccountId()).ifPresent((account) -> {
       throw new AccountTrackingAlreadyExists();
     });;
     return this.accountTrackingRepository.save(accountTrackingEntity);

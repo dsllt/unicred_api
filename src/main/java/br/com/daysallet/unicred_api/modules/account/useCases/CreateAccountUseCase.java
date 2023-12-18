@@ -14,7 +14,7 @@ public class CreateAccountUseCase {
   private AccountRepository accountRepository;
   
   public AccountEntity execute(AccountEntity accountEntity){
-    this.accountRepository.findByIdOrClientId(accountEntity.getId(), accountEntity.getClientId()).ifPresent((account) -> {
+    this.accountRepository.findByClientId(accountEntity.getClientId()).ifPresent((account) -> {
     throw new AccountAlreadyExists();
   });
 

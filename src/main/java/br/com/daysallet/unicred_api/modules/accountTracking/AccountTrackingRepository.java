@@ -6,5 +6,5 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountTrackingRepository extends JpaRepository<AccountTrackingEntity, UUID>{
-  Optional<AccountTrackingEntity> findByIdOrAccountId(UUID id, UUID accountId);
+  Optional<AccountTrackingEntity> findByAccountId(UUID accountId);
 }

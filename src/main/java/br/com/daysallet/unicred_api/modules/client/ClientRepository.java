@@ -6,5 +6,5 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, UUID>{
-  Optional<ClientEntity> findByIdOrCnpj(UUID id, String cnpj);
+  Optional<ClientEntity> findByEmailOrCnpj(String email, String cnpj);
 }
