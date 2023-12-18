@@ -22,11 +22,12 @@ public class AccountTrackingEntity {
   private UUID id;
 
   @OneToOne()
-  @JoinColumn(name = "account_id")
+  @JoinColumn(name = "account_id", insertable = false, updatable = false)
   private AccountEntity accountEntity;
 
   @Column(name = "account_id")
   private UUID accountId;
+  
   private LocalDateTime updateDate;
   private String status;
 }
