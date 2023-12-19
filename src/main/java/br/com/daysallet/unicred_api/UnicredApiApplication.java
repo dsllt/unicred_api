@@ -8,6 +8,6 @@ public class UnicredApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UnicredApiApplication.class, args);
-	} 
+	}
 
 }

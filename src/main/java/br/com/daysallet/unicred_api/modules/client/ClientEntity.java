@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -31,15 +30,12 @@ public class ClientEntity {
   
   private String phone;
 
+  @NotBlank
   @Email(message = "O campo [email] deve conter um e-mail válido")
   private String email;
-  
+
   private String address;
   private String cep;
-
-  @NotBlank
-  @Pattern(regexp = "\\S+", message = "O campo [username] não deve conter espaço")
-  private String username;
 
   @Length(min = 8, max = 20, message = "A senha deve conter entre (8) e (20) caracteres")
   private String password;
