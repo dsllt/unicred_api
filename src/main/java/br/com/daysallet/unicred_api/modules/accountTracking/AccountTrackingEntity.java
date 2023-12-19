@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,11 +22,11 @@ public class AccountTrackingEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @OneToOne()
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "account_id", insertable = false, updatable = false)
   private AccountEntity accountEntity;
 
-  @Column(name = "account_id")
+  @Column(name = "account_id", nullable = false)
   private UUID accountId;
   
   private LocalDateTime updateDate;

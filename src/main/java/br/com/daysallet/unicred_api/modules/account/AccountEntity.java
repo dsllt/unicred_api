@@ -30,15 +30,8 @@ public class AccountEntity {
   @JoinColumn(name = "client_id", insertable = false, updatable = false)
   private ClientEntity clientEntity;
 
-  @Column(name = "client_id")
+  @Column(name = "client_id", nullable = false)
   private UUID clientId;
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "request_id", insertable = false, updatable = false)
-  private AccountTrackingEntity accountTrackingEntity;
-
-  @Column(name = "request_id")
-  private UUID requestId;
 
   @CreationTimestamp
   private LocalDateTime requestDate;
