@@ -1,5 +1,8 @@
 package br.com.daysallet.unicred_api.modules.client.useCases;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,7 @@ public class AuthClientUseCase {
     }
 
     Algorithm algorithm = Algorithm.HMAC256(secretKey);
-    var token = JWT.create().withSubject(client.getId().toString()).sign(algorithm);
+    var token = JWT.create().withExpiresAt(Instant.now().plus(Duration.ofHours(2))).withSubject(client.getId().toString()).sign(algorithm);
 
     return token;
   }
