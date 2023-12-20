@@ -4,8 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
+import br.com.daysallet.unicred_api.modules.account.dto.CreateAccountDTO;
 import br.com.daysallet.unicred_api.modules.account.useCases.CreateAccountUseCase;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +25,18 @@ public class AccountController {
   private CreateAccountUseCase createAccountUseCase;
   
   @PostMapping("/")
-  public ResponseEntity<Object> create(@Valid @RequestBody AccountEntity accountEntity) {
+  public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountDTO createAccountDTO, HttpServletRequest request) {
+    var clientId = request.getAttribute("client_id");
+    createAccountDTO.setClientId(UUID.fromString(clientId.toString()));
+
+    var accountEntity = AccountEntity.builder().clientId(createAccountDTO.getClientId()).build();
+
     try{
       var result = this.createAccountUseCase.execute(accountEntity);
+
       return ResponseEntity.ok().body(result);
     } catch (Exception err) {
+
       return ResponseEntity.badRequest().body(err.getMessage());
     }
   }

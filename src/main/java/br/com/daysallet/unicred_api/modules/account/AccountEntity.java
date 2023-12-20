@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import br.com.daysallet.unicred_api.modules.accountTracking.AccountTrackingEntity;
 import br.com.daysallet.unicred_api.modules.client.ClientEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,11 +14,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "account")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AccountEntity {
 
   @Id
