@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
 import br.com.daysallet.unicred_api.modules.account.dto.CreateAccountDTO;
+import br.com.daysallet.unicred_api.modules.account.useCases.AccessAccountUseCase;
 import br.com.daysallet.unicred_api.modules.account.useCases.CreateAccountUseCase;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,6 +25,9 @@ public class AccountController {
 
   @Autowired
   private CreateAccountUseCase createAccountUseCase;
+
+  @Autowired
+  private AccessAccountUseCase accessAccountUseCase;
   
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountDTO createAccountDTO, HttpServletRequest request) {
@@ -41,4 +46,15 @@ public class AccountController {
     }
   }
   
+  @GetMapping("/")
+  public ResponseEntity<Object> get(HttpServletRequest request) {
+
+    var clientId = request.getAttribute("client_id");
+    try {
+      var account = this.accessAccountUseCase.execute(UUID.fromString(clientId.toString()));
+      return ResponseEntity.ok().body(account);
+    } catch (Exception err) {
+      return ResponseEntity.badRequest().body(err.getMessage());
+    }
+  }
 }
