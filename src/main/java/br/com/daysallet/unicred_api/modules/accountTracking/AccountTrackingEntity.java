@@ -3,6 +3,8 @@ package br.com.daysallet.unicred_api.modules.accountTracking;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,10 +14,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "account_tracking")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountTrackingEntity {
   
   @Id
@@ -28,7 +36,9 @@ public class AccountTrackingEntity {
 
   @Column(name = "account_id", nullable = false)
   private UUID accountId;
-  
+
+  @UpdateTimestamp
   private LocalDateTime updateDate;
+
   private String status;
 }
