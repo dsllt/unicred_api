@@ -16,6 +16,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import br.com.daysallet.unicred_api.exceptions.IncorrectEmailOrPassword;
 import br.com.daysallet.unicred_api.modules.client.ClientRepository;
 import br.com.daysallet.unicred_api.modules.client.dto.AuthClientDTO;
+import br.com.daysallet.unicred_api.modules.client.dto.AuthClientResponseDTO;
 
 @Service
 public class AuthClientUseCase {
@@ -29,7 +30,7 @@ public class AuthClientUseCase {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  public String execute(AuthClientDTO authClientDTO) throws AuthenticationException{
+  public AuthClientResponseDTO execute(AuthClientDTO authClientDTO) throws AuthenticationException{
     var client = this.clientRepository.findByEmail(authClientDTO.getEmail()).orElseThrow(
       () -> {
         throw new IncorrectEmailOrPassword();
@@ -43,8 +44,17 @@ public class AuthClientUseCase {
     }
 
     Algorithm algorithm = Algorithm.HMAC256(secretKey);
-    var token = JWT.create().withExpiresAt(Instant.now().plus(Duration.ofHours(2))).withSubject(client.getId().toString()).sign(algorithm);
+    var expiresIn = Instant.now().plus(Duration.ofHours(2));
+    var token = JWT.create()
+      .withExpiresAt(expiresIn)
+      .withSubject(client.getId().toString())
+      .sign(algorithm);
 
-    return token;
+    var authCandidateResponse = AuthClientResponseDTO.builder()
+      .access_token(token)
+      .expires_in(expiresIn.toEpochMilli())
+      .build();
+
+    return authCandidateResponse;
   }
 }
