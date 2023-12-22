@@ -19,7 +19,7 @@ public class SecurityConfig {
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> {
       auth.requestMatchers("/client/").permitAll()
-          .requestMatchers("/auth/client").permitAll();
+          .requestMatchers("/client/auth").permitAll();
       auth.anyRequest().authenticated();
     })
     .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);

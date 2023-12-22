@@ -12,18 +12,18 @@ import br.com.daysallet.unicred_api.modules.client.dto.AuthClientDTO;
 import br.com.daysallet.unicred_api.modules.client.useCases.AuthClientUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/client")
 public class AuthClientController {
   
   @Autowired
   private AuthClientUseCase authClientUseCase;
 
-  @PostMapping("/client")
+  @PostMapping("/auth")
   public ResponseEntity<Object> create(@RequestBody AuthClientDTO authClientDTO) {
 
     try {
       var token = this.authClientUseCase.execute(authClientDTO);
-      
+
       return ResponseEntity.ok().body(token);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
