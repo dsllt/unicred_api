@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class AccountController {
   @Autowired
   private AccessAccountUseCase accessAccountUseCase;
   
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountDTO createAccountDTO, HttpServletRequest request) {
     var clientId = request.getAttribute("client_id");
@@ -46,10 +48,11 @@ public class AccountController {
     }
   }
   
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/")
   public ResponseEntity<Object> get(HttpServletRequest request) {
-
     var clientId = request.getAttribute("client_id");
+    System.out.println("REQUEST" + clientId);
     try {
       var account = this.accessAccountUseCase.execute(UUID.fromString(clientId.toString()));
       return ResponseEntity.ok().body(account);
