@@ -18,14 +18,16 @@ public class CreateAccountTrackingUseCase {
     this.accountTrackingRepository.findByAccountId(accountTrackingEntity.getAccountId()).ifPresent((account) -> {
       throw new AccountTrackingAlreadyExists();
     });
+    
     this.accountTrackingRepository.save(accountTrackingEntity);
+
     var createAccountTrackingResponse = CreateAccountTrackingResponseDTO.builder()
       .id(accountTrackingEntity.getId())
       .accountId(accountTrackingEntity.getAccountId())
       .updateDate(accountTrackingEntity.getUpdateDate())
       .status(accountTrackingEntity.getStatus())
       .build();
+
     return createAccountTrackingResponse;
   }
 }
- 
