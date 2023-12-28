@@ -32,10 +32,7 @@ public class AccountController {
   
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/")
-  public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountDTO createAccountDTO, HttpServletRequest request) {
-    var clientId = request.getAttribute("client_id");
-    createAccountDTO.setClientId(UUID.fromString(clientId.toString()));
-
+  public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountDTO createAccountDTO) {
     var accountEntity = AccountEntity.builder().clientId(createAccountDTO.getClientId()).build();
 
     try{
@@ -52,7 +49,6 @@ public class AccountController {
   @GetMapping("/")
   public ResponseEntity<Object> get(HttpServletRequest request) {
     var clientId = request.getAttribute("client_id");
-    System.out.println("REQUEST" + clientId);
     try {
       var account = this.accessAccountUseCase.execute(UUID.fromString(clientId.toString()));
       return ResponseEntity.ok().body(account);
