@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,5 +41,6 @@ public class AccountTrackingEntity {
   @UpdateTimestamp
   private LocalDateTime updateDate;
 
-  private String status;
+  @Embedded
+  private AccountTrackingStatus[] status;
 }
