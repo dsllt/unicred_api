@@ -37,7 +37,7 @@ public class ClientEntity {
   private String address;
   private String cep;
 
-  @Length(min = 8, max = 20, message = "A senha deve conter entre (8) e (20) caracteres")
+  @Length(min = 4, message = "A senha deve conter no mínimo 4 caracteres")
   private String password;
 
   @CreationTimestamp
