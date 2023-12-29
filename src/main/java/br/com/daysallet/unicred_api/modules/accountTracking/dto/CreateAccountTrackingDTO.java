@@ -1,8 +1,17 @@
 package br.com.daysallet.unicred_api.modules.accountTracking.dto;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-import br.com.daysallet.unicred_api.modules.accountTracking.AccountTrackingStatus;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Data;
 
-public record CreateAccountTrackingDTO(UUID accountId, AccountTrackingStatus[] status) {}
+@Data
+public class CreateAccountTrackingDTO {
+  UUID accountId;
+  String status;
+
+  @UpdateTimestamp
+  private LocalDateTime date;
+}

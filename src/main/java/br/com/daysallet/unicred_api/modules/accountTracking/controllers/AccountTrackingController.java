@@ -32,8 +32,9 @@ public class AccountTrackingController {
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CreateAccountTrackingDTO createAccountTrackingDTO) {
     var accountTrackingEntity = AccountTrackingEntity.builder()
-      .accountId(createAccountTrackingDTO.accountId())
-      .status(createAccountTrackingDTO.status())
+      .accountId(createAccountTrackingDTO.getAccountId())
+      .status(createAccountTrackingDTO.getStatus())
+      .date(createAccountTrackingDTO.getDate())
       .build();
 
     try {

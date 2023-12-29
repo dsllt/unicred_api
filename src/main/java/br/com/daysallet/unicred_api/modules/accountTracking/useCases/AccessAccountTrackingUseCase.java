@@ -23,7 +23,7 @@ public class AccessAccountTrackingUseCase {
     var accountTrackingDTO = AccessAccountTrackingDTO.builder()
       .accountId(accountTracking.getId())
       .status(accountTracking.getStatus())
-      .updateDate(accountTracking.getUpdateDate())
+      .updateDate(accountTracking.getDate())
       .build();
 
     return accountTrackingDTO;

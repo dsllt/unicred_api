@@ -8,13 +8,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import br.com.daysallet.unicred_api.modules.account.AccountEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +30,7 @@ public class AccountTrackingEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "account_id", insertable = false, updatable = false)
   private AccountEntity accountEntity;
 
@@ -39,8 +38,7 @@ public class AccountTrackingEntity {
   private UUID accountId;
 
   @UpdateTimestamp
-  private LocalDateTime updateDate;
+  private LocalDateTime date;
 
-  @Embedded
-  private AccountTrackingStatus[] status;
+  private String status;
 }
