@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,8 +35,8 @@ public class ClientEntity {
   @Email(message = "O campo [email] deve conter um e-mail válido")
   private String email;
 
-  private String address;
-  private String cep;
+  @Embedded
+  private Address address;
 
   @Length(min = 4, message = "A senha deve conter no mínimo 4 caracteres")
   private String password;

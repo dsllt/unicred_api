@@ -35,7 +35,6 @@ public class AccessAccountUseCase {
       .phone(client.getPhone())
       .email(client.getEmail())
       .address(client.getAddress())
-      .cep(client.getCep())
       .accountId(account.getId())
       .requestDate(account.getRequestDate())
       .approvalDate(account.getApprovalDate())

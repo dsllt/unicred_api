@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.daysallet.unicred_api.modules.client.ClientEntity;
-import br.com.daysallet.unicred_api.modules.client.dto.UpdateClientDTO;
+import br.com.daysallet.unicred_api.modules.client.dto.CreateClientResponseDTO;
 import br.com.daysallet.unicred_api.modules.client.useCases.CreateClientUseCase;
-import br.com.daysallet.unicred_api.modules.client.useCases.UpdateClientUseCase;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -23,24 +22,32 @@ public class ClientController {
 
   @Autowired
   private CreateClientUseCase createClientUseCase;
-
-  @Autowired
-  private UpdateClientUseCase updateClientUseCase;
   
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody ClientEntity clientEntity){
     try {
       var result = this.createClientUseCase.execute(clientEntity);
-      return ResponseEntity.ok().body(result);
+
+      var createClientResponse = CreateClientResponseDTO.builder()
+        .id(result.getId())
+        .name(result.getName())
+        .cnpj(result.getCnpj())
+        .phone(result.getPhone())
+        .email(result.getEmail())
+        .address(result.getAddress())
+        .createdAt(result.getCreatedAt())
+        .build();
+
+      return ResponseEntity.ok().body(createClientResponse);
     } catch (Exception err) {
       return ResponseEntity.badRequest().body(err.getMessage());
     }
   }
 
-  @PutMapping("/")
-  @Transactional
-  public void update(@Valid @RequestBody UpdateClientDTO updateClientDTO){
-    this.updateClientUseCase.execute(updateClientDTO, updateClientDTO.getId());
-  }
+  // @PutMapping("/")
+  // @Transactional
+  // public void update(@Valid @RequestBody UpdateClientDTO updateClientDTO){
+  //   this.updateClientUseCase.execute(updateClientDTO, updateClientDTO.getId());
+  // }
 }
