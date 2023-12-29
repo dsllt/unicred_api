@@ -40,5 +40,5 @@ public class AccountTrackingEntity {
   @UpdateTimestamp
   private LocalDateTime date;
 
-  private String status;
+  private Status status;
 }

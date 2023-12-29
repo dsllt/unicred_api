@@ -19,7 +19,7 @@ public class CreateAccountTrackingUseCase {
     var createAccountTrackingResponse = CreateAccountTrackingResponseDTO.builder()
       .id(accountTrackingEntity.getId())
       .accountId(accountTrackingEntity.getAccountId())
-      .updateDate(accountTrackingEntity.getDate())
+      .date(accountTrackingEntity.getDate())
       .status(accountTrackingEntity.getStatus())
       .build();
 
