@@ -1,9 +1,9 @@
 package br.com.daysallet.unicred_api.modules.accountTracking.useCases;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.daysallet.unicred_api.modules.accountTracking.AccountTrackingRepository;
@@ -15,17 +15,21 @@ public class AccessAccountTrackingUseCase {
   @Autowired
   private AccountTrackingRepository accountTrackingRepository;
   
-  public AccessAccountTrackingDTO execute(UUID accountId) {
-    var accountTracking = this.accountTrackingRepository.findByAccountId(accountId).orElseThrow(() -> {
-      throw new UsernameNotFoundException("Conta não encontrada.");
-    });
+  public ArrayList<AccessAccountTrackingDTO> execute(UUID accountId) {
+    var accountTracking = this.accountTrackingRepository.findAllByAccountId(accountId);
 
-    var accountTrackingDTO = AccessAccountTrackingDTO.builder()
-      .accountId(accountTracking.getId())
-      .status(accountTracking.getStatus())
-      .date(accountTracking.getDate())
+    var accountTrackingDTOList =  new ArrayList<AccessAccountTrackingDTO>();
+
+    accountTracking.forEach((account) -> {
+      var accountTrackingDTO = AccessAccountTrackingDTO.builder()
+      .accountId(account.getId())
+      .status(account.getStatus())
+      .date(account.getDate())
       .build();
 
-    return accountTrackingDTO;
+      accountTrackingDTOList.add(accountTrackingDTO);
+    });
+
+    return accountTrackingDTOList;
   }
 }
