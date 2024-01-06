@@ -10,6 +10,7 @@ public class CorsConfiguration implements WebMvcConfigurer{
   public void addCorsMappings(CorsRegistry registry) {
       registry.addMapping("/**")
           .allowedOrigins("http://localhost:4200")
+          .allowedOrigins("https://dsllt.github.io")
           .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
   }
 }
