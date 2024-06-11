@@ -33,7 +33,7 @@ Esta API foi desenvolvida como parte de um desafio técnico, buscando proporcion
 | account-tracking-access | AccountTrackingController        | GET  account-tracking/   |
 
 
-# Intalação
+# Instalação
 ```bash
 # Instalar o Java 17
 
